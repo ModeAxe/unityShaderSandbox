@@ -54,10 +54,12 @@ Shader "Unlit/First Test"
                 return(v - a) / (b - a);
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            fixed4 frag(v2f i) : SV_Target
             {
 
-                return  float4(i.uv, 0, 1);
+                //float t = i.uv.x;
+                float t = abs(frac(i.uv.x * 5) * 2 - 1);
+                return  t;
             }
             ENDCG
         }
