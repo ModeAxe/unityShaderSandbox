@@ -1,5 +1,6 @@
 Shader "Unlit/First Test"
 {
+
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
@@ -10,11 +11,14 @@ Shader "Unlit/First Test"
             Tags { "RenderType" = "Opaque" }
             LOD 100
 
+
             Pass
             {
                 CGPROGRAM
                 #pragma vertex vert
                 #pragma fragment frag
+                #define TAU 6.283185307179586
+
                 // make fog work
                 #pragma multi_compile_fog
 
@@ -58,7 +62,9 @@ Shader "Unlit/First Test"
             {
 
                 //float t = i.uv.x;
-                float t = abs(frac(i.uv.x * 5) * 2 - 1);
+                //float t = abs(frac(i.uv.x * 5) * 2 - 1);
+                float xOffset = cos (i.uv.y * TAU * 8 * 0.2f);
+                float t = cos((i.uv.x + xOffset + _Time.y) * TAU * 5) * 0.5 + 0.5;
                 return  t;
             }
             ENDCG
